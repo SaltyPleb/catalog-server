@@ -47,7 +47,7 @@ class userController {
   async check(req, res, next) {
 
 
-
+      
 
     // res.json('kjgfdnhjgnhdfjug')
     // const { id } = req.query;
