@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 
+# static have only images
+/static 
+
 # testing
 /coverage
 

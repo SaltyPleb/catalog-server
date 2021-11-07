@@ -1,4 +1,4 @@
-const {Type} = require('../models/models')
+const {Type, DeviceInfo, Device} = require('../models/models')
 const ApiError = require('../error/ApiError')
 
 class typeController{
@@ -10,6 +10,15 @@ class typeController{
 
     async getAll(req, res) {
         const types = await Type.findAll()
+        return res.json(types)
+    }
+
+    async getOneType(req, res) {
+        const {id} = req.params
+        const types = await Type.findOne({ 
+            where: {id},
+            include: [{model: Device, as: "device"}]
+        })
         return res.json(types)
     }
 
