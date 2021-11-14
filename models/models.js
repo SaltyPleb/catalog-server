@@ -89,9 +89,6 @@ Favorite.belongsTo(User)
 User.hasOne(Basket)
 Basket.belongsTo(User)
 
-Favorite.hasOne(Device)
-Device.belongsTo(Favorite)
-
 User.hasMany(Rating)
 Rating.belongsTo(User)
 

@@ -16,6 +16,14 @@ class favoriteController {
     const favorite = await Favorite.findAll();
     return res.json(favorite);
   }
+
+  async getById(req, res) {
+    const {id} = req.params
+    const favorite = await Favorite.findAll({
+        where: {userId: id}
+    });
+    return res.json(favorite);
+  }
 }
 
 module.exports = new favoriteController();
