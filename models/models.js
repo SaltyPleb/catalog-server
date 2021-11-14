@@ -50,6 +50,41 @@ const TypeBrand = sequelize.define('type_brand', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
 })
 
+const Favorite = sequelize.define('favorite', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    // user_id: {type: DataTypes.INTEGER, allowNull: false},
+    device_name: {type: DataTypes.STRING, allowNull: false},
+    device_link: {type: DataTypes.STRING, allowNull: true}
+})
+
+const History = sequelize.define('history', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, allowNull: false},
+    // user_id: {type: DataTypes.INTEGER, allowNull: false}
+})
+
+const Links = sequelize.define('links', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, allowNull: false},
+    // device_name: {type: DataTypes.STRING, allowNull:false, primaryKey: true},
+    link: {type: DataTypes.STRING, allowNull: true}
+})
+
+const AboutPage = sequelize.define('aboutpage',{
+    aboutinfo: {type: DataTypes.STRING}
+})
+
+const AuthToken = sequelize.define('authtoken',{
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    token: {type: DataTypes.STRING}
+})
+
+User.hasMany(History)
+History.belongsTo(User)
+
+Device.hasMany(Links)
+Links.belongsTo(Device)
+
+User.hasMany(Favorite)
+Favorite.belongsTo(User)
 
 User.hasOne(Basket)
 Basket.belongsTo(User)
@@ -87,5 +122,10 @@ module.exports = {
     Brand,
     Rating,
     TypeBrand,
-    DeviceInfo
+    DeviceInfo,
+    Favorite,
+    History,
+    AuthToken,
+    AboutPage,
+    Links
 }
