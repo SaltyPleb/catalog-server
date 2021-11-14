@@ -53,7 +53,8 @@ const TypeBrand = sequelize.define('type_brand', {
 const Favorite = sequelize.define('favorite', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     // user_id: {type: DataTypes.INTEGER, allowNull: false},
-    // device_name: {type: DataTypes.STRING, allowNull: false}
+    device_name: {type: DataTypes.STRING, allowNull: false},
+    device_link: {type: DataTypes.STRING, allowNull: true}
 })
 
 const History = sequelize.define('history', {
@@ -87,6 +88,9 @@ Favorite.belongsTo(User)
 
 User.hasOne(Basket)
 Basket.belongsTo(User)
+
+Favorite.hasOne(Device)
+Device.belongsTo(Favorite)
 
 User.hasMany(Rating)
 Rating.belongsTo(User)
