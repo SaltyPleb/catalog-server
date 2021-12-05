@@ -63,6 +63,11 @@ class userController {
 
     // If we type in router http://localhost:5000/api/user/auth?id=5&messege=kdsngjnd (messega after ?) that give us json file in curret page
   }
+
+  async getUsers(req, res) {
+    const users = await User.findAll()
+    return res.json(users)
+}
 }
 
 module.exports = new userController();
