@@ -20,11 +20,6 @@ app.set('port', PORT);
 app.use('/api', router)
 var server = http.createServer(app);
 
-app.get('/', (req, res) => {
-  res.end('<h1>WHY THIS THIS NOT WORKING</h1>')
-})
-
-
 // Error processing, only in end of all
 app.use(errorHandler)
 
