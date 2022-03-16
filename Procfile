@@ -1,0 +1,1 @@
+web: mode index.js
