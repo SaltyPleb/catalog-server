@@ -13,11 +13,13 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 app.use(cors());
 app.use(express.json())
-app.use(express.static(path.resolve(__dirname, 'static')))
+// app.use(express.static(path.resolve(__dirname, 'static')))
 app.use(fileUpload({}))
 app.use('/api', router)
 
-
+app.get('/', (req, res) => {
+  res.end('<h1>WHY THIS THIS NOT WORKING</h1>')
+})
 
 
 // Error processing, only in end of all
