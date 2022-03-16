@@ -1,1 +1,1 @@
-web: mode index.js
+web: node index.js
