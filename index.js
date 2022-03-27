@@ -7,6 +7,7 @@ const fileUpload = require('express-fileupload')
 const router = require('./routes/index')
 const errorHandler =require('./middleware/ErrorHandlingMiddleware')
 const path = require('path')
+const test = require('./utils/tests')
 
 const PORT = process.env.PORT || 5000;
 
@@ -14,7 +15,7 @@ const app = express();
 app.use(cors());
 var http = require('http');
 app.use(express.json())
-// app.use(express.static(path.resolve(__dirname, 'static')))
+app.use(express.static(path.join(__dirname, 'static')))
 app.use(fileUpload({}))
 app.set('port', PORT);
 app.use('/api', router)
@@ -67,6 +68,7 @@ function onListening() {
       server.listen(PORT, () => console.log(`listening on port ${PORT}`));
       server.on('error', onError);
       server.on('listening', onListening);
+      // test.insertData;
     // app.listen(PORT, () => console.log(`listening on port ${PORT}`))
   } catch (e) {
     console.log(e);
