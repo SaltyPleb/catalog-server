@@ -1,0 +1,45 @@
+[{
+  "name": "Intel Core i9-10900F",
+  "rating": 4,
+  "rating_count": 2,
+  "price_usd": 358.99,
+  "core_count": "10",
+  "core_clock": "2.8 GHz",
+  "boost_clock": "5.2 GHz",
+  "tdp": "65 W",
+  "integrated_graphics": null,
+  "smt": true
+}, {
+  "name": "AMD Threadripper 1900X",
+  "rating": 4,
+  "rating_count": 6,
+  "price_usd": 159.99,
+  "core_count": "8",
+  "core_clock": "3.8 GHz",
+  "boost_clock": "4 GHz",
+  "tdp": "180 W",
+  "integrated_graphics": null,
+  "smt": true
+}, {
+  "name": "Intel Core i7-11700F",
+  "rating": 0,
+  "rating_count": 0,
+  "price_usd": null,
+  "core_count": "8",
+  "core_clock": "2.5 GHz",
+  "boost_clock": "4.9 GHz",
+  "tdp": "65 W",
+  "integrated_graphics": null,
+  "smt": true
+}, {
+  "name": "AMD Ryzen 7 2700",
+  "rating": 4,
+  "rating_count": 73,
+  "price_usd": 273.19,
+  "core_count": "8",
+  "core_clock": "3.2 GHz",
+  "boost_clock": "4.1 GHz",
+  "tdp": "65 W",
+  "integrated_graphics": null,
+  "smt": true
+}]

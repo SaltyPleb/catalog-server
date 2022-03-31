@@ -31,35 +31,38 @@ var downloadImageToUrl = (url, filename, callback) => {
 
 const client = new imageSearch(
   "b56c855d526d04ec1",
-  " AIzaSyAIcQi51luFVOjTSYXTYtywVapioAfF6WE "
+  "AIzaSyCmRrUSWHsNOX8HsacfKpWvd6MGc-hC09I"
 );
+// AIzaSyCmRrUSWHsNOX8HsacfKpWvd6MGc-hC09I  AIzaSyBlYhaihqVMqg8-DQGWcKsh7g1Ck23v0vs
 
 const options = { page: 1 };
 
-const searchClient = function (searchName) {
-    const fileName = "";
-  client
-    .search(searchName, options)
-    .then((images) => {
-      // [{
-      //     'url': item.link,
-      //     'thumbnail':item.image.thumbnailLink,
-      //     'snippet':item.title,
-      //     'context': item.image.contextLink
-      // }]
-      images.forEach((image, index) => {
-        if (index <= 0) {
-          fileName = uuid.v4() + ".jpg";
-          downloadImageToUrl(image.url, `./static/test/${fileName}`);
-          console.log(index + " downloaded " + image.url);
-          
-        }
-      });
-    })
-    .catch((error) => console.log(error));
+class searchClient {
+  async searchImage(searchName) {
+    var fileName;
+    await client
+      .search(searchName, options)
+      .then((images) => {
+        // [{
+        //     'url': item.link,
+        //     'thumbnail':item.image.thumbnailLink,
+        //     'snippet':item.title,
+        //     'context': item.image.contextLink
+        // }]
+        fileName = uuid.v4() + ".jpg";
+        images.forEach((image, index) => {
+          if (index <= 0) {
+            const search = downloadImageToUrl(
+              image.url,
+              `./static/${fileName}`
+            );
+            console.log(index + 1 + " downloaded " + image.url);
+          }
+        });
+      })
+      .catch((error) => console.log(error));
     return fileName;
-};
+  }
+}
 
-module.exports = searchClient;
-
-// searchClient("RTX 3090")
+module.exports = new searchClient();

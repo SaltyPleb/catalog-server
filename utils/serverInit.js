@@ -1,12 +1,13 @@
 require("dotenv").config();
 const express = require("express");
-const sequelize = require("./db");
-const models = require('./models/models')
+const sequelize = require("../db");
+const models = require('../models/models')
 const cors = require('cors')
 const fileUpload = require('express-fileupload')
-const router = require('./routes/index')
-const errorHandler =require('./middleware/ErrorHandlingMiddleware')
+const router = require('../routes/index')
+const errorHandler =require('../middleware/ErrorHandlingMiddleware')
 const path = require('path')
+const test = require('./tests')
 
 const PORT = process.env.PORT || 5000;
 
@@ -54,21 +55,16 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
 }
-
-// app.get('/', (req, res) => {
-  //     res.status(200).json({message: 'WORKING'})
-  // })
-  
   
   const start = async () => {
     try {
       await sequelize.authenticate()
       await sequelize.sync()
-      server.listen(PORT, () => console.log(`listening on port ${PORT}`));
+      await server.listen(PORT, () => test);
       server.on('error', onError);
       server.on('listening', onListening);
-      // test.insertData;
-    // app.listen(PORT, () => console.log(`listening on port ${PORT}`))
+      console.log('Data base was created successfully')
+      process.exit(0);
   } catch (e) {
     console.log(e);
   }
