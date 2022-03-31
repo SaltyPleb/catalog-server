@@ -35,7 +35,8 @@ const test = async () => {
       }
     );
     const basket = await Basket.create({ userId: user.id });
-    const token = generateJwt(user.id, user.email, user.role);
+    const token = await generateJwt(user.id, user.email, user.role);
+    
     console.log(token);
 
     let jsonData = require("./data/processors.json");
@@ -46,13 +47,13 @@ const test = async () => {
 
     await Promise.all(jsonData.map((row, index) => {
       var brandId = 1;
-      if (!row.name[0] == "AMD") {
+      if (!row.name.match(/(\w+)/)[0] == "AMD") {
         brandId = 1;
       } else {
         brandId = 2;
       }
 
-      const brand = Brand.bulkCreate([{ name: row.name[0], dep: 1 }], {
+      const brand = Brand.bulkCreate([{ name: row.name.match(/(\w+)/)[0], dep: 1 }], {
         ignoreDuplicates: true,
       });
 
