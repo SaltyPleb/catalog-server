@@ -12,7 +12,8 @@ const {
 const fs = require("fs");
 
 const searchClient = require("./imageSearch");
-const deviceFill = require("./executors/deviceFill");
+const cpuFill = require("./executors/cpuFill");
+const gpuFill = require("./executors/gpuFill");
 
 const generateJwt = (id, email, role) => {
   return jwt.sign({ id, email, role }, process.env.SECRET_KEY, {
@@ -41,14 +42,18 @@ const test = async () => {
     console.log(token);
 
     let cpuData = require("./data/processors.json");
-    let gpusData = require("./data/gpu.json")
+    let gpuData = require("./data/gpu.json")
 
     const type = await Type.bulkCreate([{ name: "CPU" }], {
       ignoreDuplicates: true,
     });
 
     await Promise.all(cpuData.slice(0, 10).map((row, index) => {
-      deviceFill(row, index, cpuData)
+      cpuFill(row, index, cpuData)
+    }));
+
+    await Promise.all(gpuData.slice(0, 10).map((row, index) => {
+      gpuFill(row, index, gpuData)
     }));
     
   } catch (err) {

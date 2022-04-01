@@ -1,7 +1,7 @@
 const { Brand, Device, DeviceInfo } = require("../../models/models");
 const searchClient = require("../imageSearch");
 
-const deviceFill = (row, index, rawData) => {
+const cpuFill = (row, index, rawData) => {
     row = rawData[Math.floor(Math.random()*rawData.length)];
 
     var brandId = 1;
@@ -57,4 +57,4 @@ const deviceFill = (row, index, rawData) => {
 
     console.log(`device ${index} ${row.name} created`);
 }
-module.exports = deviceFill
+module.exports = cpuFill
