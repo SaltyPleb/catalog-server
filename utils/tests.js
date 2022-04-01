@@ -12,6 +12,7 @@ const {
 const fs = require("fs");
 
 const searchClient = require("./imageSearch");
+const deviceFill = require("./executors/deviceFill");
 
 const generateJwt = (id, email, role) => {
   return jwt.sign({ id, email, role }, process.env.SECRET_KEY, {
@@ -39,62 +40,17 @@ const test = async () => {
     
     console.log(token);
 
-    let jsonData = require("./data/processors.json");
+    let cpuData = require("./data/processors.json");
+    let gpusData = require("./data/gpu.json")
 
     const type = await Type.bulkCreate([{ name: "CPU" }], {
       ignoreDuplicates: true,
     });
 
-    await Promise.all(jsonData.map((row, index) => {
-      var brandId = 1;
-      if (!row.name.match(/(\w+)/)[0] == "AMD") {
-        brandId = 1;
-      } else {
-        brandId = 2;
-      }
-
-      const brand = Brand.bulkCreate([{ name: row.name.match(/(\w+)/)[0], dep: 1 }], {
-        ignoreDuplicates: true,
-      });
-
-      searchClient.searchImage(row.name).then(async (result) => {
-        const device = await Device.bulkCreate(
-          [
-            {
-              name: row.name,
-              price: Math.round(Number(row.price_usd)),
-              brandId,
-              typeId: 1,
-              img: result,
-              desc: `This processor ratings count is ${row.rating_count} and rating is ${row.rating} stars`,
-            },
-          ],
-          {
-            ignoreDuplicates: true,
-          }
-        );
-
-        const deviceInfo = [
-          "core_count",
-          "core_clock",
-          "boost_clock",
-          "tdp",
-          "smt",
-        ];
-
-        deviceInfo.forEach((item) =>
-          DeviceInfo.create({
-            title: item,
-            description: row[item],
-            deviceId: device.id,
-          })
-        );
-
-
-      });
-
-      console.log(`device ${index} created`);
+    await Promise.all(cpuData.slice(0, 10).map((row, index) => {
+      deviceFill(row, index, cpuData)
     }));
+    
   } catch (err) {
     console.error(err);
   }
