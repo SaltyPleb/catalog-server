@@ -1,7 +1,7 @@
 "use strict";
 
 const { Type, Brand } = require("../../models/models");
-const constants = require("../consts");
+const constants = require("../consts/consts");
 const unique_from_array = require("../helpers/uniqe_from_array");
 
 const brandsFill = () => {

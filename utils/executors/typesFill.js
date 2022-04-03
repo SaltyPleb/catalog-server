@@ -1,5 +1,5 @@
 const { Type } = require("../../models/models");
-const constants = require("../consts");
+const constants = require("../consts/consts");
 
 const typesFill = () => {
   constants.TYPES_CONST.map((item) => {

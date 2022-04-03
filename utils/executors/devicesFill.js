@@ -4,7 +4,7 @@ const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const { Type, Brand, Device, DeviceInfo } = require("../../models/models");
 const searchClient = require("../imageSearch");
-const constants = require("../consts");
+const constants = require("../consts/consts");
 
 const devicesFill = (limit) => {
   constants.TYPES_CONST.map(async ({ type, dataFile, description }) => {
