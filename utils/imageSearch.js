@@ -1,5 +1,5 @@
 const imageSearch = require("image-search-google");
-
+require("dotenv").config();
 const uuid = require("uuid");
 
 var fs = require("fs"),
@@ -33,7 +33,6 @@ const client = new imageSearch(
   "b56c855d526d04ec1",
   "AIzaSyBlYhaihqVMqg8-DQGWcKsh7g1Ck23v0vs"
 );
-// AIzaSyCmRrUSWHsNOX8HsacfKpWvd6MGc-hC09I  AIzaSyBlYhaihqVMqg8-DQGWcKsh7g1Ck23v0vs
 
 const options = { page: 1 };
 

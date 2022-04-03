@@ -1,4 +1,5 @@
-const ApiError = require("../error/ApiError");
+"use strict";
+
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const {
@@ -9,10 +10,9 @@ const {
   Type,
   Brand,
 } = require("../models/models");
-const fs = require("fs");
-
-const searchClient = require("./imageSearch");
-const deviceFill = require("./executors/deviceFill");
+const typeFill = require("./executors/typesFill");
+const brandFill = require("./executors/brandsFill");
+const devicesFill = require("./executors/devicesFill");
 
 const generateJwt = (id, email, role) => {
   return jwt.sign({ id, email, role }, process.env.SECRET_KEY, {
@@ -37,20 +37,16 @@ const test = async () => {
     );
     const basket = await Basket.create({ userId: user.id });
     const token = await generateJwt(user.id, user.email, user.role);
+
+    console.log(`new user token: ${token}`);
+
+    typeFill();
+
+    brandFill();
     
-    console.log(token);
+    // deviceFill has limit params, thats indicate how many devices will be created for each type
+    devicesFill(2);
 
-    let cpuData = require("./data/processors.json");
-    let gpusData = require("./data/gpu.json")
-
-    const type = await Type.bulkCreate([{ name: "CPU" }], {
-      ignoreDuplicates: true,
-    });
-
-    await Promise.all(cpuData.slice(0, 10).map((row, index) => {
-      deviceFill(row, index, cpuData)
-    }));
-    
   } catch (err) {
     console.error(err);
   }
