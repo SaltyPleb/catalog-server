@@ -59,8 +59,11 @@ const Favorite = sequelize.define('favorite', {
 })
 
 const History = sequelize.define('history', {
-    id: {type: DataTypes.INTEGER, primaryKey: true, allowNull: false},
+    id: {type: DataTypes.INTEGER, primaryKey: true, allowNull: false, autoIncrement: true},
     // user_id: {type: DataTypes.INTEGER, allowNull: false}
+    link: {type: DataTypes.STRING, allowNull: true},
+    device: {type: DataTypes.STRING, allowNull: true},
+    favorite: {type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false}
 })
 
 const Links = sequelize.define('links', {
