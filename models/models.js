@@ -32,7 +32,7 @@ const Type = sequelize.define('type', {
 
 const Brand = sequelize.define('brand', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name: {type: DataTypes.STRING, unique: false, allowNull: false},
+    name: {type: DataTypes.STRING, unique: true, allowNull: false},
     dep: {type: DataTypes.STRING, unique: false, allowNull: false},
 })
 
@@ -86,6 +86,9 @@ Links.belongsTo(Device)
 
 User.hasMany(Favorite)
 Favorite.belongsTo(User)
+
+Device.hasMany(Favorite)
+Favorite.belongsTo(Device)
 
 User.hasOne(Basket)
 Basket.belongsTo(User)

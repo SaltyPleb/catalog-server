@@ -1,11 +1,11 @@
-const { Favorite } = require("../models/models");
+const { Favorite, Device } = require("../models/models");
 const ApiError = require("../error/ApiError");
 
 class favoriteController {
   async create(req, res, next) {
     try {
-      const { device_name, device_link, userId } = req.body;
-      const favorite = await Favorite.create({ device_name, device_link, userId });
+      const { device_name, device_link, userId, deviceId } = req.body;
+      const favorite = await Favorite.create({ device_name, device_link, userId, deviceId });
       return res.json(favorite);
     } catch (e) {
       next(ApiError.badRequest(e.message));
@@ -20,7 +20,8 @@ class favoriteController {
   async getById(req, res) {
     const {id} = req.params
     const favorite = await Favorite.findAll({
-        where: {userId: id}
+        where: {userId: id},
+        include: [{model: Device, as: "device"}]
     });
     return res.json(favorite);
   }
