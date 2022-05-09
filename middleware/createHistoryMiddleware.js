@@ -20,7 +20,7 @@ module.exports = function () {
         });
 
         const createHistory = History.bulkCreate(
-          [{ userId: decoded.id, link: `${req.headers.referer}catalog/device/${currentDevice.id}`, device: currentDevice.name, favorite: true}],
+          [{ userId: decoded.id, link: `${req.headers.referer}catalog/device/${currentDevice.id}`, device: currentDevice.name, favorite: false}],
           {
             ignoreDuplicates: true,
           });
