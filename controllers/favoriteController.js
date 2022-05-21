@@ -5,7 +5,12 @@ class favoriteController {
   async create(req, res, next) {
     try {
       const { device_name, device_link, userId, deviceId } = req.body;
-      const favorite = await Favorite.create({ device_name, device_link, userId, deviceId });
+      const favorite = await Favorite.create({
+        device_name,
+        device_link,
+        userId,
+        deviceId,
+      });
       return res.json(favorite);
     } catch (e) {
       next(ApiError.badRequest(e.message));
@@ -13,17 +18,25 @@ class favoriteController {
   }
 
   async getAll(req, res) {
-    const favorite = await Favorite.findAll();
-    return res.json(favorite);
+    try {
+      const favorite = await Favorite.findAll();
+      return res.json(favorite);
+    } catch (e) {
+      return res.json(ApiError.internal(e.message));
+    }
   }
 
   async getById(req, res) {
-    const {id} = req.params
-    const favorite = await Favorite.findAll({
-        where: {userId: id},
-        include: [{model: Device, as: "device"}]
-    });
-    return res.json(favorite);
+    try {
+      const { id } = req.params;
+      const favorite = await Favorite.findAll({
+        where: { userId: id },
+        include: [{ model: Device, as: "device" }],
+      });
+      return res.json(favorite);
+    } catch (e) {
+      return res.json(ApiError.internal(e.message));
+    }
   }
 }
 

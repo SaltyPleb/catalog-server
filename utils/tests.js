@@ -44,6 +44,7 @@ const test = async () => {
 
     brandFill();
     
+    // TODO: change to async and refactor
     // deviceFill has limit params, thats indicate how many devices will be created for each type
     devicesFill(2);
 

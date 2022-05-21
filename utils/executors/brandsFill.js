@@ -10,20 +10,23 @@ const brandsFill = () => {
       where: { name: item.type },
     });
 
-    Promise.resolve(unique_from_array(item.dataFile)).then((result) => {
-      try {
-        result.map(({ dep, brand }) => {
-          const brands = Brand.bulkCreate(
-            [{ name: brand, dep: curretTypeData.id }],
-            {
-              ignoreDuplicates: true,
-            }
-          );
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    });
+    const brandsCheck = await Brand.findAndCountAll()
+    if (brandsCheck.count == 0) {
+      Promise.resolve(unique_from_array(item.dataFile)).then((result) => {
+        try {
+          result.map(({ dep, brand }) => {
+            const brands = Brand.bulkCreate(
+              [{ name: brand, dep: curretTypeData.id }],
+              {
+                ignoreDuplicates: true,
+              }
+            );
+          });
+        } catch (error) {
+          console.error(error);
+        }
+      });
+    }
   });
 };
 
